@@ -4,23 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vectores Quest - 1º ESO</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
-        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        /* Estilos para ocultar/mostrar pestañas */
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
     </style>
 </head>
-<body class="min-h-screen bg-slate-100 p-4 md:p-6 antialiased">
+<body class="bg-slate-100 p-4 md:p-6 min-h-screen">
 
     <div class="mx-auto max-w-7xl overflow-hidden rounded-[2rem] bg-white shadow-2xl">
         
-        <section class="relative overflow-hidden bg-gradient-to-br from-blue-800 via-indigo-700 to-cyan-600 p-8 text-white md:p-12">
-            <div class="absolute -right-20 -top-20 h-72 w-72 rounded-full bg-white/10"></div>
-            <div class="absolute -bottom-24 left-20 h-80 w-80 rounded-full bg-white/10"></div>
-
+        <header class="relative overflow-hidden bg-gradient-to-br from-blue-800 via-indigo-700 to-cyan-600 p-8 text-white md:p-12">
             <div class="relative z-10 grid gap-8 md:grid-cols-[1.4fr_0.6fr] md:items-center">
                 <div>
                     <div class="mb-4 inline-flex items-center gap-2 rounded-full bg-white/15 px-4 py-2 text-sm font-bold backdrop-blur">
@@ -32,612 +28,569 @@
                     </p>
                 </div>
                 <div class="rounded-[2rem] border border-white/20 bg-white/10 p-6 backdrop-blur-md">
-                    <p class="mb-3 text-lg font-bold text-white/80">Objetivo de la misión</p>
-                    <p class="text-3xl font-black">Moverse por el plano como si fuera un mapa.</p>
+                    <p class="mb-3 text-lg font-bold text-white/80">Objetivo didáctico</p>
+                    <p class="text-2xl font-black">Moverse por el plano cartesiano como si fuera un mapa de juego.</p>
                 </div>
             </div>
-        </section>
+        </header>
 
-        <main class="space-y-16 p-6 md:p-10">
+        <nav class="flex flex-wrap border-b border-slate-200 bg-slate-50 p-2 gap-2">
+            <button onclick="switchTab('teoria')" id="btn-teoria" class="tab-btn active flex items-center gap-2 px-6 py-3 rounded-xl font-bold text-lg transition bg-blue-600 text-white shadow-md">
+                <i data-lucide="map-pinned" class="w-5 h-5"></i> 1. Teoría y Coordenadas
+            </button>
+            <button onclick="switchTab('explorador')" id="btn-explorador" class="tab-btn flex items-center gap-2 px-6 py-3 rounded-xl font-bold text-lg transition text-slate-600 hover:bg-slate-200">
+                <i data-lucide="arrow-right" class="w-5 h-5"></i> 2. Explorador Libre
+            </button>
+            <button onclick="switchTab('misiones')" id="btn-misiones" class="tab-btn flex items-center gap-2 px-6 py-3 rounded-xl font-bold text-lg transition text-slate-600 hover:bg-slate-200">
+                <i data-lucide="target" class="w-5 h-5"></i> 3. Misiones Vectoriales
+            </button>
+            <button onclick="switchTab('test')" id="btn-test" class="tab-btn flex items-center gap-2 px-6 py-3 rounded-xl font-bold text-lg transition text-slate-600 hover:bg-slate-200">
+                <i data-lucide="brain" class="w-5 h-5"></i> 4. Tipo Test Final
+            </button>
+        </nav>
 
-            <section class="grid gap-6 sm:grid-cols-2 md:grid-cols-4">
-                <div class="rounded-3xl bg-blue-50 p-6 text-center ring-1 ring-blue-100">
-                    <i data-lucide="map-pinned" class="mx-auto mb-3 text-blue-700 w-9 h-9"></i>
-                    <p class="text-xl font-black text-slate-800">Coordenadas</p>
-                    <p class="mt-2 text-slate-600">Localiza puntos en el plano.</p>
-                </div>
-                <div class="rounded-3xl bg-emerald-50 p-6 text-center ring-1 ring-emerald-100">
-                    <i data-lucide="arrow-right" class="mx-auto mb-3 text-emerald-700 w-9 h-9"></i>
-                    <p class="text-xl font-black text-slate-800">Vectores</p>
-                    <p class="mt-2 text-slate-600">Entiende la flecha como movimiento.</p>
-                </div>
-                <div class="rounded-3xl bg-amber-50 p-6 text-center ring-1 ring-amber-100">
-                    <i data-lucide="target" class="mx-auto mb-3 text-amber-700 w-9 h-9"></i>
-                    <p class="text-xl font-black text-slate-800">Retos</p>
-                    <p class="mt-2 text-slate-600">Resuelve misiones manipulables.</p>
-                </div>
-                <div class="rounded-3xl bg-purple-50 p-6 text-center ring-1 ring-purple-100">
-                    <i data-lucide="brain" class="mx-auto mb-3 text-purple-700 w-9 h-9"></i>
-                    <p class="text-xl font-black text-slate-800">Quiz</p>
-                    <p class="mt-2 text-slate-600">Comprueba lo aprendido.</p>
-                </div>
-            </section>
+        <main class="p-6 md:p-10">
 
-            <section>
-                <div class="mb-8 flex items-center gap-4">
+            <section id="teoria" class="tab-content active space-y-8">
+                <div class="flex items-center gap-4">
                     <div class="flex h-14 w-14 items-center justify-center rounded-2xl bg-blue-100 text-3xl">📍</div>
                     <div>
-                        <h2 class="text-4xl font-black text-slate-800">1. Antes del vector: el mapa de coordenadas</h2>
-                        <p class="text-lg text-slate-500">Primero aprendemos a movernos por el plano.</p>
+                        <h2 class="text-4xl font-black text-slate-800">El mapa de coordenadas</h2>
+                        <p class="text-lg text-slate-500">Antes de lanzar flechas, aprendemos las calles del plano cartesiano.</p>
                     </div>
                 </div>
+
                 <div class="grid gap-6 md:grid-cols-3">
                     <div class="rounded-3xl border border-blue-200 bg-blue-50 p-6 shadow-sm">
                         <div class="mb-4 text-5xl">↔️</div>
-                        <h3 class="mb-3 text-2xl font-black text-slate-800">Eje X</h3>
-                        <p class="text-lg leading-8 text-slate-700">Es la línea horizontal. Si x es positivo, vamos a la derecha. Si x es negativo, vamos a la izquierda.</p>
+                        <h3 class="mb-3 text-2xl font-black text-slate-800">Eje X (Horizontal)</h3>
+                        <p class="text-lg leading-8 text-slate-700">Es la línea tumbada. Si el número es **positivo**, caminamos a la **derecha**. Si es **negativo**, vamos a la **izquierda**.</p>
                     </div>
                     <div class="rounded-3xl border border-emerald-200 bg-emerald-50 p-6 shadow-sm">
                         <div class="mb-4 text-5xl">↕️</div>
-                        <h3 class="mb-3 text-2xl font-black text-slate-800">Eje Y</h3>
-                        <p class="text-lg leading-8 text-slate-700">Es la línea vertical. Si y es positivo, vamos hacia arriba. Si y es negativo, vamos hacia abajo.</p>
+                        <h3 class="mb-3 text-2xl font-black text-slate-800">Eje Y (Vertical)</h3>
+                        <p class="text-lg leading-8 text-slate-700">Es la línea de pie. Si el número es **positivo**, subimos hacia **arriba**. Si es **negativo**, bajamos hacia **abajo**.</p>
                     </div>
                     <div class="rounded-3xl border border-purple-200 bg-purple-50 p-6 shadow-sm">
                         <div class="mb-4 text-5xl">🎯</div>
-                        <h3 class="mb-3 text-2xl font-black text-slate-800">Punto (x, y)</h3>
-                        <p class="text-lg leading-8 text-slate-700">Un punto se escribe con dos números: primero la x y después la y. Por ejemplo: (3, 2).</p>
+                        <h3 class="mb-3 text-2xl font-black text-slate-800">El Punto (x, y)</h3>
+                        <p class="text-lg leading-8 text-slate-700">Cualquier sitio del mapa se escribe con dos números entre paréntesis: primero la dirección X y luego la Y. Ejemplo: <span class="font-bold text-purple-700">(3, 2)</span>.</p>
+                    </div>
+                </div>
+
+                <div class="rounded-[2rem] bg-slate-50 p-6 border border-slate-200 md:p-8 space-y-4">
+                    <h3 class="text-2xl font-black text-slate-800">¿Y qué es un Vector entonces?</h3>
+                    <p class="text-lg leading-8 text-slate-700">Un vector no es solo un punto fijo; es una **instrucción de movimiento**. Es la flecha que te dice cómo viajar desde un punto de salida (Origen A) hasta un punto de llegada (Extremo B).</p>
+                    <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-4 pt-2">
+                        <div class="bg-white p-4 rounded-2xl border border-slate-200"><span class="font-bold text-red-600">📍 Origen (A):</span> Donde empieza el viaje.</div>
+                        <div class="bg-white p-4 rounded-2xl border border-slate-200"><span class="font-bold text-emerald-600">🏁 Extremo (B):</span> Donde termina la flecha.</div>
+                        <div class="bg-white p-4 rounded-2xl border border-slate-200"><span class="font-bold text-blue-600">🧭 Dirección:</span> La inclinación de la línea.</div>
+                        <div class="bg-white p-4 rounded-2xl border border-slate-200"><span class="font-bold text-purple-600">🔄 Sentido:</span> Hacia dónde apunta la punta del triángulo.</div>
                     </div>
                 </div>
             </section>
 
-            <section class="rounded-[2rem] bg-slate-50 p-6 ring-1 ring-slate-200 md:p-8">
-                <div class="mb-6 flex flex-col justify-between gap-4 md:flex-row md:items-center">
-                    <div>
-                        <h2 class="text-3xl font-black text-slate-800">Explorador libre de coordenadas</h2>
-                        <p class="mt-2 text-lg text-slate-600">Haz clic en cualquier punto de la cuadrícula y observa cómo cambia el vector.</p>
-                    </div>
-                    <button onclick="resetFreeExplorer()" class="inline-flex items-center justify-center gap-2 rounded-2xl bg-slate-900 px-5 py-3 font-bold text-white transition hover:bg-slate-700">
-                        <i data-lucide="refresh-cw" class="w-4 h-4"></i> Reiniciar
-                    </button>
+            <section id="explorador" class="tab-content space-y-6">
+                <div>
+                    <h2 class="text-3xl font-black text-slate-800">Explorador Libre de Vectores</h2>
+                    <p class="text-lg text-slate-600 mt-1">Haz clic en los puntos grises de la cuadrícula para mover el extremo B y ver cómo cambia el vector matemático.</p>
                 </div>
+
                 <div class="grid gap-8 lg:grid-cols-[1fr_0.85fr] lg:items-start">
-                    <div id="grid-free-container"></div>
-                    
+                    <div class="overflow-auto rounded-3xl border border-slate-200 bg-white p-4 shadow-sm flex flex-col items-center">
+                        <svg id="free-grid" viewBox="0 0 432 432" class="h-[430px] w-[430px] max-w-full"></svg>
+                        <div class="grid gap-3 rounded-2xl bg-slate-50 p-4 text-center grid-cols-3 w-full mt-4 border border-slate-200">
+                            <div>
+                                <p class="text-xs font-bold uppercase text-slate-500">Origen A</p>
+                                <p class="text-xl font-black text-red-600">(0, 0)</p>
+                            </div>
+                            <div>
+                                <p class="text-xs font-bold uppercase text-slate-500">Extremo B</p>
+                                <p id="free-coord-b" class="text-xl font-black text-emerald-600">(3, 2)</p>
+                            </div>
+                            <div>
+                                <p class="text-xs font-bold uppercase text-slate-500">Vector AB</p>
+                                <p id="free-vector-val" class="text-xl font-black text-blue-700">(3, 2)</p>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="space-y-5">
-                        <div class="rounded-3xl bg-white p-6 ring-1 ring-slate-200">
-                            <h3 class="mb-3 text-2xl font-black text-slate-800">¿Qué está pasando?</h3>
-                            <p class="text-lg leading-8 text-slate-700">El punto rojo es el origen A. El punto verde es el final B. La flecha azul es el vector que une A con B.</p>
+                        <div class="rounded-3xl bg-blue-50 p-6 border border-blue-100">
+                            <p class="mb-2 text-sm font-black uppercase text-blue-700">Traducción del Movimiento</p>
+                            <p id="free-translation" class="text-xl font-black text-slate-800">3 a la derecha y 2 hacia arriba.</p>
+                            <p class="mt-3 text-base text-slate-600 leading-relaxed">
+                                Los vectores se leen de izquierda a derecha dentro del paréntesis. El primer número te dice cuánto avanzar de lado y el segundo cuánto subir o bajar.
+                            </p>
                         </div>
-                        <div class="rounded-3xl bg-blue-50 p-6 ring-1 ring-blue-100">
-                            <p class="mb-2 text-sm font-black uppercase text-blue-700">Lectura del vector</p>
-                            <p id="vector-free-text" class="text-2xl font-black text-slate-800">Vector = (3, 2)</p>
-                            <p id="vector-free-desc" class="mt-3 text-lg leading-8 text-slate-700">Esto significa: 3 a la derecha y 2 hacia arriba.</p>
+                        <div class="rounded-3xl bg-amber-50 p-6 border border-amber-100">
+                            <h4 class="text-lg font-bold text-amber-900 flex items-center gap-2"><i data-lucide="brain" class="w-5 h-5"></i> Truco para recordar</h4>
+                            <p class="mt-2 text-slate-700 leading-relaxed">¡Primero andas por la acera (Eje X) y luego subes en el ascensor (Eje Y)! Nunca intentes subir el ascensor antes de llegar al portal.</p>
                         </div>
-                        <div class="rounded-3xl bg-amber-50 p-6 ring-1 ring-amber-100">
-                            <p class="text-lg font-bold text-amber-900">Truco para 1º ESO</p>
-                            <p class="mt-2 text-lg leading-8 text-slate-700">Primero camina por el eje X y después por el eje Y. Como si fueran calles de una ciudad.</p>
-                        </div>
+                        <button onclick="resetFreeExplorer()" class="w-full inline-flex items-center justify-center gap-2 rounded-2xl bg-slate-900 px-5 py-4 font-bold text-white transition hover:bg-slate-700">
+                            <i data-lucide="refresh-cw" class="w-5 h-5"></i> Reiniciar Explorador
+                        </button>
                     </div>
                 </div>
             </section>
 
-            <section>
-                <div class="mb-8 flex items-center gap-4">
-                    <div class="flex h-14 w-14 items-center justify-center rounded-2xl bg-emerald-100 text-3xl">➡️</div>
-                    <div>
-                        <h2 class="text-4xl font-black text-slate-800">2. Ahora sí: ¿qué es un vector?</h2>
-                        <p class="text-lg text-slate-500">Una flecha que representa un desplazamiento.</p>
+            <section id="misiones" class="tab-content space-y-6">
+                <div>
+                    <div class="mb-2 inline-flex items-center gap-2 rounded-full bg-indigo-100 px-4 py-1 text-sm font-bold text-indigo-800">
+                        <i data-lucide="gamepad-2" class="w-4 h-4"></i> Modo Desafío
                     </div>
-                </div>
-                <div class="grid gap-6 sm:grid-cols-2 md:grid-cols-4">
-                    <div class="rounded-3xl border border-red-200 bg-red-50 p-6 shadow-sm">
-                        <div class="mb-4 text-5xl">📍</div>
-                        <h3 class="mb-3 text-2xl font-black text-slate-800">Origen</h3>
-                        <p class="text-lg leading-8 text-slate-700">Es el punto donde empieza la flecha. En muchas actividades lo llamaremos punto A.</p>
-                    </div>
-                    <div class="rounded-3xl border border-emerald-200 bg-emerald-50 p-6 shadow-sm">
-                        <div class="mb-4 text-5xl">🏁</div>
-                        <h3 class="mb-3 text-2xl font-black text-slate-800">Extremo</h3>
-                        <p class="text-lg leading-8 text-slate-700">Es el punto donde termina la flecha. En muchas actividades lo llamaremos punto B.</p>
-                    </div>
-                    <div class="rounded-3xl border border-blue-200 bg-blue-50 p-6 shadow-sm">
-                        <div class="mb-4 text-5xl">🧭</div>
-                        <h3 class="mb-3 text-2xl font-black text-slate-800">Dirección</h3>
-                        <p class="text-lg leading-8 text-slate-700">Es la línea por la que se mueve el vector: horizontal, vertical o diagonal.</p>
-                    </div>
-                    <div class="rounded-3xl border border-purple-200 bg-purple-50 p-6 shadow-sm">
-                        <div class="mb-4 text-5xl">🔄</div>
-                        <h3 class="mb-3 text-2xl font-black text-slate-800">Sentido</h3>
-                        <p class="text-lg leading-8 text-slate-700">Indica hacia dónde apunta: derecha, izquierda, arriba, abajo o una combinación.</p>
-                    </div>
-                </div>
-            </section>
-
-            <section class="rounded-[2rem] bg-gradient-to-br from-indigo-50 to-cyan-50 p-6 ring-1 ring-indigo-100 md:p-8">
-                <div class="mb-6 flex flex-col justify-between gap-4 md:flex-row md:items-center">
-                    <div>
-                        <div class="mb-3 inline-flex items-center gap-2 rounded-full bg-indigo-100 px-4 py-2 font-bold text-indigo-800">
-                            <i data-lucide="gamepad-2" class="w-4 h-4"></i> Zona manipulable
-                        </div>
-                        <h2 class="text-4xl font-black text-slate-800">3. Misiones vectoriales</h2>
-                        <p class="mt-2 text-lg text-slate-600">Haz clic en la cuadrícula hasta colocar el punto B en el lugar correcto.</p>
-                    </div>
-                    <div class="rounded-3xl bg-white p-5 text-center shadow-sm ring-1 ring-slate-200">
-                        <p class="text-sm font-black uppercase text-slate-500">Misión actual</p>
-                        <p id="mission-counter-text" class="text-3xl font-black text-indigo-700">1/3</p>
-                    </div>
+                    <h2 class="text-3xl font-black text-slate-800">Misiones Vectoriales</h2>
+                    <p class="text-lg text-slate-600">Cumple el objetivo solicitado moviendo el punto verde B en el mapa.</p>
                 </div>
 
                 <div class="grid gap-8 lg:grid-cols-[1fr_0.9fr]">
-                    <div id="grid-mission-container"></div>
-
-                    <div class="space-y-5">
-                        <div class="rounded-3xl bg-white p-6 shadow-sm ring-1 ring-slate-200">
-                            <p id="mission-title-tag" class="text-sm font-black uppercase text-indigo-700">Misión 1</p>
-                            <h3 id="mission-subtitle-text" class="mt-1 text-3xl font-black text-slate-800">Construye el vector</h3>
-                            <p id="mission-instruction-text" class="mt-4 text-xl font-semibold leading-8 text-slate-700">Coloca el punto final en (3, 2).</p>
-
-                            <div class="mt-5 rounded-2xl bg-slate-50 p-4">
-                                <p class="text-sm font-black uppercase text-slate-500">Tu vector ahora mismo</p>
-                                <p id="mission-current-vector" class="text-3xl font-black text-blue-700">(1, 1)</p>
+                    <div class="overflow-auto rounded-3xl border border-slate-200 bg-white p-4 shadow-sm flex flex-col items-center">
+                        <svg id="mission-grid" viewBox="0 0 432 432" class="h-[430px] w-[430px] max-w-full"></svg>
+                        <div class="grid gap-3 rounded-2xl bg-slate-50 p-4 text-center grid-cols-3 w-full mt-4 border border-slate-200">
+                            <div>
+                                <p class="text-xs font-bold uppercase text-slate-500">Punto A</p>
+                                <p id="mission-coord-a" class="text-xl font-black text-red-600">(0, 0)</p>
+                            </div>
+                            <div>
+                                <p class="text-xs font-bold uppercase text-slate-500">Punto B</p>
+                                <p id="mission-coord-b" class="text-xl font-black text-emerald-600">(1, 1)</p>
+                            </div>
+                            <div>
+                                <p class="text-xs font-bold uppercase text-slate-500">Tu Vector</p>
+                                <p id="mission-vector-val" class="text-xl font-black text-blue-700">(1, 1)</p>
                             </div>
                         </div>
+                    </div>
 
-                        <div id="mission-feedback-box" class="rounded-3xl p-6 ring-1 bg-white ring-slate-200">
-                            <div class="flex items-start gap-3">
-                                <div id="mission-feedback-icon" class="text-3xl mt-1">🎯</div>
+                    <div class="space-y-5">
+                        <div class="rounded-3xl bg-white p-6 border border-slate-200 shadow-sm relative">
+                            <span id="mission-badge" class="absolute top-6 right-6 font-black text-indigo-700 bg-indigo-50 px-3 py-1 rounded-full text-sm border border-indigo-100">Misión 1 / 3</span>
+                            <p id="mission-title" class="text-sm font-black uppercase text-indigo-700">Misión 1</p>
+                            <h3 id="mission-subtitle" class="mt-1 text-2xl font-black text-slate-800">Construye el vector</h3>
+                            <p id="mission-instruction" class="mt-4 text-xl font-semibold text-slate-700 bg-slate-50 p-4 rounded-xl border border-slate-100">Coloca el punto final en (3, 2).</p>
+                        </div>
+
+                        <div id="mission-status-box" class="rounded-3xl p-6 border bg-white border-slate-200 transition-all">
+                            <div class="flex items-start gap-4">
+                                <div id="mission-status-icon" class="text-slate-400 mt-1">
+                                    <i data-lucide="target" class="w-8 h-8"></i>
+                                </div>
                                 <div>
-                                    <h4 id="mission-feedback-title" class="text-2xl font-black text-slate-800">Sigue probando</h4>
-                                    <p id="mission-feedback-help" class="mt-2 text-lg leading-8 text-slate-700">Desde el origen: 3 a la derecha y 2 hacia arriba.</p>
+                                    <h4 id="mission-status-title" class="text-xl font-black text-slate-800">Buscando coordenadas...</h4>
+                                    <p id="mission-status-desc" class="mt-1 text-base text-slate-600">Desde el origen: 3 a la derecha y 2 hacia arriba.</p>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="grid gap-3 grid-cols-3">
-                            <button onclick="toggleMissionTarget()" id="btn-pista" class="rounded-2xl bg-amber-400 px-3 py-4 font-black text-amber-950 transition hover:bg-amber-300">
-                                Ver pista
+                        <div class="grid gap-3 grid-cols-2">
+                            <button onclick="toggleMissionHint()" id="btn-hint" class="rounded-xl bg-amber-400 p-4 font-black text-amber-950 transition hover:bg-amber-300 flex items-center justify-center gap-2">
+                                <i data-lucide="lightbulb" class="w-5 h-5"></i> Mostrar Pista
                             </button>
-                            <button onclick="resetCurrentMission()" class="rounded-2xl bg-slate-900 px-3 py-4 font-black text-white transition hover:bg-slate-700">
-                                Reiniciar
-                            </button>
-                            <button id="btn-next-mission" onclick="goToNextMission()" disabled class="rounded-2xl bg-indigo-700 px-3 py-4 font-black text-white transition hover:bg-indigo-600 disabled:cursor-not-allowed disabled:bg-slate-300">
-                                Siguiente
+                            <button onclick="nextMission()" id="btn-next" disabled class="rounded-xl bg-indigo-300 p-4 font-black text-white cursor-not-allowed flex items-center justify-center gap-2">
+                                Siguiente Reto <i data-lucide="arrow-right" class="w-5 h-5"></i>
                             </button>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <section>
-                <div class="mb-8 flex items-center gap-4">
-                    <div class="flex h-14 w-14 items-center justify-center rounded-2xl bg-amber-100 text-3xl">✏️</div>
-                    <div>
-                        <h2 class="text-4xl font-black text-slate-800">4. Ejercicios de entrenamiento</h2>
-                        <p class="text-lg text-slate-500">Sin miedo: leer, pensar, probar y corregir.</p>
-                    </div>
+            <section id="test" class="tab-content space-y-6">
+                <div>
+                    <h2 class="text-3xl font-black text-slate-800">Comprueba lo aprendido</h2>
+                    <p class="text-lg text-slate-600">Un pequeño cuestionario de autoevaluación para consolidar las ideas.</p>
                 </div>
 
-                <div class="grid gap-6 md:grid-cols-2">
-                    <div class="rounded-3xl border border-slate-200 bg-white p-7 shadow-sm">
-                        <p class="mb-2 text-sm font-black uppercase text-blue-700">Ejercicio 1</p>
-                        <h3 class="text-2xl font-black text-slate-800">Del punto al vector</h3>
-                        <p class="mt-4 text-lg leading-8 text-slate-700">Si A está en (0,0) y B está en (4, -2), ¿qué vector se ha construido?</p>
-                        <div class="mt-5 rounded-2xl bg-slate-50 p-5 text-lg font-medium text-slate-600 border border-slate-100">
-                            💡 <strong>Pista:</strong> Mira cuánto cambia x y cuánto cambia y. La respuesta es el desplazamiento directo: <strong>(4, -2)</strong>.
-                        </div>
+                <div id="quiz-container" class="space-y-6">
                     </div>
 
-                    <div class="rounded-3xl border border-slate-200 bg-white p-7 shadow-sm">
-                        <p class="mb-2 text-sm font-black uppercase text-green-700">Ejercicio 2</p>
-                        <h3 class="text-2xl font-black text-slate-800">Del movimiento al punto</h3>
-                        <p class="mt-4 text-lg leading-8 text-slate-700">Empiezas en (1,1). Te mueves 3 a la izquierda y 4 hacia arriba. ¿Dónde terminas?</p>
-                        <div class="mt-5 rounded-2xl bg-slate-50 p-5 text-lg font-medium text-slate-600 border border-slate-100">
-                            💡 <strong>Pista:</strong> Izquierda resta en x ($1 - 3 = -2$); arriba suma en y ($1 + 4 = 5$). Terminas en <strong>(-2, 5)</strong>.
-                        </div>
-                    </div>
-
-                    <div class="rounded-3xl border border-slate-200 bg-white p-7 shadow-sm">
-                        <p class="mb-2 text-sm font-black uppercase text-purple-700">Ejercicio 3</p>
-                        <h3 class="text-2xl font-black text-slate-800">Vectores iguales</h3>
-                        <p class="mt-4 text-lg leading-8 text-slate-700">Un vector va de (0,0) a (2,3). Otro va de (4,1) a (6,4). ¿Son iguales?</p>
-                        <div class="mt-5 rounded-2xl bg-slate-50 p-5 text-lg font-medium text-slate-600 border border-slate-100">
-                            💡 <strong>Pista:</strong> No mires dónde empiezan, mira el avance. El primero avanza (2,3) y el segundo también ($6-4=2$, $4-1=3$). ¡Sí son iguales!
-                        </div>
-                    </div>
-
-                    <div class="rounded-3xl border border-slate-200 bg-white p-7 shadow-sm">
-                        <p class="mb-2 text-sm font-black uppercase text-red-700">Ejercicio 4</p>
-                        <h3 class="text-2xl font-black text-slate-800">Describe el vector</h3>
-                        <p class="mt-4 text-lg leading-8 text-slate-700">Si un vector es (-3, -1), explica con palabras el movimiento que realiza.</p>
-                        <div class="mt-5 rounded-2xl bg-slate-50 p-5 text-lg font-medium text-slate-600 border border-slate-100">
-                            💡 <strong>Pista:</strong> La x negativa significa <strong>3 pasos a la izquierda</strong>, y la y negativa significa <strong>1 paso hacia abajo</strong>.
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <section class="rounded-[2rem] bg-slate-900 p-6 text-white md:p-8">
-                <div class="mb-8 flex items-center gap-4">
-                    <div class="flex h-14 w-14 items-center justify-center rounded-2xl bg-white/10 text-3xl">⚡</div>
-                    <div>
-                        <h2 class="text-4xl font-black">5. Tipo test final</h2>
-                        <p class="text-lg text-white/70">Responde y revisa tu puntuación.</p>
-                    </div>
-                </div>
-
-                <div id="quiz-questions-block" class="space-y-6 text-slate-950">
-                    </div>
-
-                <div class="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between border-t border-white/10 pt-6">
-                    <button onclick="checkQuizResults()" class="rounded-2xl bg-cyan-400 px-7 py-4 text-lg font-black text-slate-950 transition hover:bg-cyan-300">
-                        Corregir test
+                <div class="pt-4 flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-slate-100">
+                    <button onclick="gradeQuiz()" class="w-full sm:w-auto rounded-2xl bg-slate-900 px-8 py-4 text-lg font-black text-white transition hover:bg-slate-700 flex items-center justify-center gap-2">
+                        <i data-lucide="check-square" class="w-5 h-5"></i> Corregir Cuestionario
                     </button>
-                    <div id="quiz-score-badge" class="hidden rounded-3xl bg-white/10 p-5 text-center ring-1 ring-white/20 text-white">
-                        <p class="text-sm font-black uppercase text-white/60">Resultado</p>
-                        <p id="quiz-score-text" class="text-4xl font-black">0/5</p>
+                    <div id="quiz-result-box" class="hidden rounded-2xl bg-indigo-50 border border-indigo-100 p-4 px-6 font-black text-2xl text-indigo-900 text-center">
+                        Puntuación: <span id="quiz-score">0</span> / 5
                     </div>
                 </div>
-            </section>
-
-            <section class="rounded-[2rem] bg-gradient-to-r from-blue-700 via-indigo-700 to-cyan-600 p-10 text-center text-white">
-                <i data-lucide="trophy" class="mx-auto mb-4 w-14 h-14 text-amber-300 animate-bounce"></i>
-                <h2 class="mb-5 text-4xl font-black">Misión completada</h2>
-                <p class="mx-auto max-w-4xl text-xl leading-10 text-white/90">
-                    Has trabajado coordenadas, puntos, desplazamientos, vectores positivos y negativos, lectura de movimientos y razonamiento matemático. Ahora los vectores ya no son “flechas raras”: son instrucciones de movimiento.
-                </p>
             </section>
 
         </main>
+
+        <footer class="bg-slate-900 p-8 text-center text-white border-t border-slate-800">
+            <div class="max-w-md mx-auto flex flex-col items-center gap-3">
+                <div class="bg-emerald-500/10 text-emerald-400 p-3 rounded-full">
+                    <i data-lucide="trophy" class="w-8 h-8"></i>
+                </div>
+                <h3 class="text-xl font-black">¡Gran trabajo!</h3>
+                <p class="text-slate-400 text-sm leading-relaxed">
+                    Al usar este entorno interactivo, los conceptos abstractos de los vectores se convierten en movimientos visuales comprensibles.
+                </p>
+            </div>
+        </footer>
+
     </div>
 
     <script>
-        // --- CONSTANTES DEL GRAFICO ---
-        const GRID_MIN = -5;
-        const GRID_MAX = 5;
-        const CELL = 36;
-        const ORIGIN = 6 * CELL;
-
-        function toSvgX(val) { return ORIGIN + val * CELL; }
-        function toSvgY(val) { return ORIGIN - val * CELL; }
-
-        // --- DATOS DE LAS MISIONES ---
-        const misiones = [
-          {
-            title: "Misión 1",
-            subtitle: "Construye el vector",
-            instruction: "Coloca el punto final en (3, 2).",
-            start: { x: 0, y: 0 },
-            target: { x: 3, y: 2 },
-            help: "Desde el origen: 3 a la derecha y 2 hacia arriba.",
-          },
-          {
-            title: "Misión 2",
-            subtitle: "Cuidado con los negativos",
-            instruction: "Coloca el punto final en (-2, 3).",
-            start: { x: 0, y: 0 },
-            target: { x: -2, y: 3 },
-            help: "Los números negativos en x van hacia la izquierda.",
-          },
-          {
-            title: "Misión 3",
-            subtitle: "Vector desde otro punto",
-            instruction: "Desde A(1, -2), crea un vector que avance 4 a la derecha y 3 arriba.",
-            start: { x: 1, y: -2 },
-            target: { x: 5, y: 1 },
-            help: "No siempre empezamos en (0,0). El destino matemático final es B(5, 1).",
-          },
-        ];
-
-        // --- DATOS DEL CUESTIONARIO ---
-        const quizQuestions = [
-          {
-            question: "¿Qué representa un vector en esta actividad?",
-            options: ["Un desplazamiento", "Un número suelto", "Un color", "Una tabla"],
-            answer: 0,
-            explanation: "Un vector nos dice cómo nos movemos desde un punto inicial hasta un punto final.",
-          },
-          {
-            question: "Si un vector va de A(0,0) a B(4,1), ¿qué desplazamiento realiza?",
-            options: ["4 izquierda y 1 arriba", "4 derecha y 1 arriba", "1 derecha y 4 arriba", "4 derecha y 1 abajo"],
-            answer: 1,
-            explanation: "La x aumenta 4 hacia la derecha y la y aumenta 1 hacia arriba.",
-          },
-          {
-            question: "¿Qué ocurre si la coordenada x es negativa?",
-            options: ["Nos movemos hacia la derecha", "Nos movemos hacia arriba", "Nos movemos hacia la izquierda", "No se puede dibujar"],
-            answer: 2,
-            explanation: "En el eje horizontal, los valores negativos van hacia la izquierda.",
-          },
-          {
-            question: "Dos vectores son iguales si...",
-            options: ["Tienen el mismo color", "Empiezan siempre en el origen", "Tienen el mismo desplazamiento", "Son muy largos"],
-            answer: 2,
-            explanation: "Pueden estar en lugares distintos, pero si mueven la misma distancia con idéntica inclinación y sentido, representan el mismo vector.",
-          },
-          {
-            question: "Un vector que avanza 2 derecha y 3 abajo puede escribirse como...",
-            options: ["(2, 3)", "(-2, 3)", "(2, -3)", "(-2, -3)"],
-            answer: 2,
-            explanation: "Derecha es x positiva (+2); abajo es y negativa (-3).",
-          }
-        ];
-
-        // --- ESTADOS LOCALES ---
+        // CONFIGURACIÓN DE LA CUADRÍCULA CARTESIANA
+        const GRID_MIN = -5, GRID_MAX = 5, CELL = 36, ORIGIN = 6 * CELL;
+        
+        // ESTADOS DE LA APLICACIÓN
         let freeEnd = { x: 3, y: 2 };
-        let activeMissionIdx = 0;
+        let currentMissionIdx = 0;
         let missionEnd = { x: 1, y: 1 };
-        let showMissionTarget = false;
-        let selectedAnswers = {};
+        let showMissionTargetHint = false;
+        let userQuizAnswers = {};
         let quizGraded = false;
 
-        // --- MOTOR DE GENERACIÓN DEL PLANO CARTESIANO (SVG) ---
-        function renderPlano(containerId, start, end, target, displayTarget, clickCallback) {
-            const container = document.getElementById(containerId);
-            const dx = end.x - start.x;
-            const dy = end.y - start.y;
+        // BANCO DE MISIONES
+        const missions = [
+            { title: "Misión 1", subtitle: "Construye el vector", instruction: "Coloca el punto final en (3, 2).", start: { x: 0, y: 0 }, target: { x: 3, y: 2 }, help: "Desde el origen (0,0): muévete 3 cuadros a la derecha y sube 2 cuadros." },
+            { title: "Misión 2", subtitle: "Cuidado con los negativos", instruction: "Coloca el punto final en (-2, 3).", start: { x: 0, y: 0 }, target: { x: -2, y: 3 }, help: "Los valores negativos en la X se mueven hacia la IZQUIERDA." },
+            { title: "Misión 3", subtitle: "Vector desde otro punto", instruction: "Desde A(1, -2), crea un vector que avance 4 a la derecha y 3 arriba.", start: { x: 1, y: -2 }, target: { x: 5, y: 1 }, help: "No siempre empezamos en (0,0). Recuerda que el vector mide la separación entre A y B." }
+        ];
 
-            // Rejilla de fondo
-            let lineasHTML = '';
-            for (let v = GRID_MIN; v <= GRID_MAX; v++) {
-                lineasHTML += `<line x1="${toSvgX(v)}" y1="${toSvgY(GRID_MIN)}" x2="${toSvgX(v)}" y2="${toSvgY(GRID_MAX)}" stroke="#e2e8f0" stroke-width="1" />`;
-                lineasHTML += `<line x1="${toSvgX(GRID_MIN)}" y1="${toSvgY(v)}" x2="${toSvgX(GRID_MAX)}" y2="${toSvgY(v)}" stroke="#e2e8f0" stroke-width="1" />`;
+        // BANCO DE PREGUNTAS DEL TEST
+        const quizQuestions = [
+            { question: "¿Qué representa un vector en esta actividad?", options: ["Un desplazamiento o instrucción de movimiento", "Un número suelto sin dirección", "Un color decorativo en el plano", "Una cuadrícula fija"], answer: 0, explanation: "Un vector indica exactamente cómo desplazarse desde un punto inicial hacia otro final." },
+            { question: "Si un vector va desde A(0,0) hasta B(4,1), ¿qué movimiento realiza?", options: ["4 hacia la izquierda y 1 hacia arriba", "4 hacia la derecha y 1 hacia arriba", "1 hacia la derecha y 4 hacia arriba", "4 hacia la derecha y 1 hacia abajo"], answer: 1, explanation: "La coordenada X aumenta 4 (derecha) y la Y aumenta 1 (arriba)." },
+            { question: "¿Qué ocurre si la primera coordenada (X) es negativa?", options: ["Nos movemos hacia la derecha", "Nos movemos hacia arriba", "Nos movemos hacia la izquierda", "El vector desaparece"], answer: 2, explanation: "En la línea horizontal, los números negativos están a la izquierda del cero." },
+            { question: "Dos vectores en zonas distintas del mapa son iguales si...", options: ["Tienen el mismo color llamativo", "Empiezan obligatoriamente en el (0,0)", "Realizan exactamente el mismo desplazamiento", "Miden más de 10 centímetros"], answer: 2, explanation: "Si provocan el mismo cambio de posición, representan el mismo vector matemático." },
+            { question: "Un vector que viaja 2 a la derecha y 3 hacia abajo se escribe como...", options: ["(2, 3)", "(-2, 3)", "(2, -3)", "(-2, -3)"], answer: 2, explanation: "Derecha significa X positiva (+2), abajo significa Y negativa (-3)." }
+        ];
+
+        // CONTROLADOR DE PESTAÑAS
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(el => {
+                el.classList.remove('bg-blue-600', 'text-white', 'shadow-md');
+                el.classList.add('text-slate-600', 'hover:bg-slate-200');
+            });
+
+            document.getElementById(tabId).classList.add('active');
+            const activeBtn = document.getElementById(`btn-${tabId}`);
+            activeBtn.classList.remove('text-slate-600', 'hover:bg-slate-200');
+            activeBtn.classList.add('bg-blue-600', 'text-white', 'shadow-md');
+
+            // Refrescar dibujos SVG al cambiar de vista
+            if(tabId === 'explorador') renderGrid('free-grid', {x:0, y:0}, freeEnd, null, false, handleFreeClick);
+            if(tabId === 'misiones') updateMissionUI();
+        }
+
+        // TRADUCTOR DE COORDENADAS MATEMÁTICAS A PÍXELES SVG
+        function toSvgX(x) { return ORIGIN + (x * CELL); }
+        function toSvgY(y) { return ORIGIN - (y * CELL); }
+
+        // MOTOR DE RENDERIZADO DEL PLANO CARTESIANO (SVG)
+        function renderGrid(svgId, start, end, target, showTargetHint, clickCallback) {
+            const svg = document.getElementById(svgId);
+            svg.innerHTML = ''; // Vaciar plano previo
+
+            // 1. Crear marcador de la punta de la flecha
+            const defs = document.createElementNS("http://www.w3.org/2000/svg", "defs");
+            defs.innerHTML = `<marker id="arrow-${svgId}" markerWidth="10" markerHeight="10" refX="6" refY="3" orient="auto">
+                                <path d="M0,0 L0,6 L8,3 z" fill="#1d4ed8" />
+                              </marker>`;
+            svg.appendChild(defs);
+
+            // 2. Dibujar líneas secundarias de la cuadrícula
+            for (let i = GRID_MIN; i <= GRID_MAX; i++) {
+                let xLine = document.createElementNS("http://www.w3.org/2000/svg", "line");
+                xLine.setAttribute("x1", toSvgX(i)); xLine.setAttribute("y1", toSvgY(GRID_MIN));
+                xLine.setAttribute("x2", toSvgX(i)); xLine.setAttribute("y2", toSvgY(GRID_MAX));
+                xLine.setAttribute("stroke", "#e2e8f0");
+                svg.appendChild(xLine);
+
+                let yLine = document.createElementNS("http://www.w3.org/2000/svg", "line");
+                yLine.setAttribute("x1", toSvgX(GRID_MIN)); yLine.setAttribute("y1", toSvgY(i));
+                yLine.setAttribute("x2", toSvgX(GRID_MAX)); yLine.setAttribute("y2", toSvgY(i));
+                yLine.setAttribute("stroke", "#e2e8f0");
+                svg.appendChild(yLine);
             }
 
-            // Etiquetas numéricas de los ejes
-            let etiquetasHTML = '';
-            for (let v = GRID_MIN; v <= GRID_MAX; v++) {
-                if (v !== 0) {
-                    etiquetasHTML += `
-                        <text x="${toSvgX(v) - 5}" y="${toSvgY(0) + 18}" font-size="10" font-weight="600" fill="#64748b">${v}</text>
-                        <text x="${toSvgX(0) + 8}" y="${toSvgY(v) + 4}" font-size="10" font-weight="600" fill="#64748b">${v}</text>
-                    `;
-                }
+            // 3. Ejes principales X e Y (Líneas negras centrales)
+            let axisX = document.createElementNS("http://www.w3.org/2000/svg", "line");
+            axisX.setAttribute("x1", toSvgX(GRID_MIN)); axisX.setAttribute("y1", toSvgY(0));
+            axisX.setAttribute("x2", toSvgX(GRID_MAX)); axisX.setAttribute("y2", toSvgY(0));
+            axisX.setAttribute("stroke", "#334155"); axisX.setAttribute("stroke-width", "2");
+            svg.appendChild(axisX);
+
+            let axisY = document.createElementNS("http://www.w3.org/2000/svg", "line");
+            axisY.setAttribute("x1", toSvgX(0)); axisY.setAttribute("y1", toSvgY(GRID_MIN));
+            axisY.setAttribute("x2", toSvgX(0)); axisY.setAttribute("y2", toSvgY(GRID_MAX));
+            axisY.setAttribute("stroke", "#334155"); axisY.setAttribute("stroke-width", "2");
+            svg.appendChild(axisY);
+
+            // 4. Añadir números identificadores en los ejes
+            for (let i = GRID_MIN; i <= GRID_MAX; i++) {
+                if(i === 0) continue;
+                let txtX = document.createElementNS("http://www.w3.org/2000/svg", "text");
+                txtX.setAttribute("x", toSvgX(i) - 6); txtX.setAttribute("y", toSvgY(0) + 16);
+                txtX.setAttribute("font-size", "10"); txtX.setAttribute("fill", "#64748b");
+                txtX.textContent = i;
+                svg.appendChild(txtX);
+
+                let txtY = document.createElementNS("http://www.w3.org/2000/svg", "text");
+                txtY.setAttribute("x", toSvgX(0) + 6); txtY.setAttribute("y", toSvgY(i) + 4);
+                txtY.setAttribute("font-size", "10"); txtY.setAttribute("fill", "#64748b");
+                txtY.textContent = i;
+                svg.appendChild(txtY);
             }
 
-            // Círculo objetivo amarillo de pista
-            let metaHTML = '';
-            if (displayTarget && target) {
-                metaHTML = `
-                    <g>
-                        <circle cx="${toSvgX(target.x)}" cy="${toSvgY(target.y)}" r="14" fill="#facc15" opacity="0.85" />
-                        <text x="${toSvgX(target.x) + 14}" y="${toSvgY(target.y) - 10}" font-size="11" font-weight="700" fill="#854d0e">objetivo</text>
-                    </g>
-                `;
+            // 5. Dibujar indicador del Objetivo Resaltado (Pista de Misión)
+            if (showTargetHint && target) {
+                let targetCircle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+                targetCircle.setAttribute("cx", toSvgX(target.x)); targetCircle.setAttribute("cy", toSvgY(target.y));
+                targetCircle.setAttribute("r", "14"); targetCircle.setAttribute("fill", "#facc15");
+                targetCircle.setAttribute("opacity", "0.75");
+                svg.appendChild(targetCircle);
+
+                let targetTxt = document.createElementNS("http://www.w3.org/2000/svg", "text");
+                targetTxt.setAttribute("x", toSvgX(target.x) + 12); targetTxt.setAttribute("y", toSvgY(target.y) - 10);
+                targetTxt.setAttribute("font-size", "12"); targetTxt.setAttribute("font-weight", "bold");
+                targetTxt.setAttribute("fill", "#854d0e");
+                targetTxt.textContent = "objetivo";
+                svg.appendChild(targetTxt);
             }
 
-            // Capa interactiva oculta para hacer clics limpios
-            let clicsHTML = '';
+            // 6. Dibujar la flecha del Vector (Línea conectora)
+            let vectorLine = document.createElementNS("http://www.w3.org/2000/svg", "line");
+            vectorLine.setAttribute("x1", toSvgX(start.x)); vectorLine.setAttribute("y1", toSvgY(start.y));
+            vectorLine.setAttribute("x2", toSvgX(end.x)); vectorLine.setAttribute("y2", toSvgY(end.y));
+            vectorLine.setAttribute("stroke", "#2563eb"); vectorLine.setAttribute("stroke-width", "5");
+            vectorLine.setAttribute("stroke-linecap", "round");
+            vectorLine.setAttribute("marker-end", `url(#arrow-${svgId})`);
+            svg.appendChild(vectorLine);
+
+            // 7. Nodo Inicial Origen A (Círculo Rojo)
+            let circleA = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+            circleA.setAttribute("cx", toSvgX(start.x)); circleA.setAttribute("cy", toSvgY(start.y));
+            circleA.setAttribute("r", "8"); circleA.setAttribute("fill", "#ef4444");
+            svg.appendChild(circleA);
+
+            let lblA = document.createElementNS("http://www.w3.org/2000/svg", "text");
+            lblA.setAttribute("x", toSvgX(start.x) + 12); lblA.setAttribute("y", toSvgY(start.y) + 4);
+            lblA.setAttribute("font-size", "14"); lblA.setAttribute("font-weight", "bold"); lblA.setAttribute("fill", "#b91c1c");
+            lblA.textContent = "A";
+            svg.appendChild(lblA);
+
+            // 8. Nodo Final Extremo B (Círculo Verde)
+            let circleB = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+            circleB.setAttribute("cx", toSvgX(end.x)); circleB.setAttribute("cy", toSvgY(end.y));
+            circleB.setAttribute("r", "9"); circleB.setAttribute("fill", "#10b981");
+            svg.appendChild(circleB);
+
+            let lblB = document.createElementNS("http://www.w3.org/2000/svg", "text");
+            lblB.setAttribute("x", toSvgX(end.x) + 12); lblB.setAttribute("y", toSvgY(end.y) + 4);
+            lblB.setAttribute("font-size", "14"); lblB.setAttribute("font-weight", "bold"); lblB.setAttribute("fill", "#047857");
+            lblB.textContent = "B";
+            svg.appendChild(lblB);
+
+            // 9. Crear capas invisibles e interactivas para registrar los clics táctiles/ratón
             for (let x = GRID_MIN; x <= GRID_MAX; x++) {
                 for (let y = GRID_MIN; y <= GRID_MAX; y++) {
-                    clicsHTML += `
-                        <circle cx="${toSvgX(x)}" cy="${toSvgY(y)}" r="10" fill="transparent" class="cursor-pointer hover:fill-blue-200/50 transition-colors" onclick="${clickCallback}(${x}, ${y})" />
-                    `;
+                    let interactiveDot = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+                    interactiveDot.setAttribute("cx", toSvgX(x)); interactiveDot.setAttribute("cy", toSvgY(y));
+                    interactiveDot.setAttribute("r", "12"); interactiveDot.setAttribute("fill", "transparent");
+                    interactiveDot.setAttribute("class", "cursor-pointer hover:fill-blue-500/20 transition-all");
+                    interactiveDot.addEventListener('click', () => clickCallback(x, y));
+                    svg.appendChild(interactiveDot);
                 }
             }
-
-            container.innerHTML = `
-                <svg viewBox="0 0 432 432" class="mx-auto h-[460px] w-[460px] max-w-full aspect-square">
-                    <defs>
-                        <marker id="arrow-${containerId}" markerWidth="10" markerHeight="10" refX="7" refY="3" orient="auto">
-                            <path d="M0,0 L0,6 L9,3 z" fill="#2563eb" />
-                        </marker>
-                    </defs>
-                    
-                    ${lineasHTML}
-                    
-                    <line x1="${toSvgX(GRID_MIN)}" y1="${toSvgY(0)}" x2="${toSvgX(GRID_MAX)}" y2="${toSvgY(0)}" stroke="#334155" stroke-width="2" />
-                    <line x1="${toSvgX(0)}" y1="${toSvgY(GRID_MIN)}" x2="${toSvgX(0)}" y2="${toSvgY(GRID_MAX)}" stroke="#334155" stroke-width="2" />
-                    
-                    ${etiquetasHTML}
-                    ${metaHTML}
-                    
-                    <line x1="${toSvgX(start.x)}" y1="${toSvgY(start.y)}" x2="${toSvgX(end.x)}" y2="${toSvgY(end.y)}" stroke="#2563eb" stroke-width="7" stroke-linecap="round" marker-end="url(#arrow-${containerId})" />
-                    
-                    <circle cx="${toSvgX(start.x)}" cy="${toSvgY(start.y)}" r="9" fill="#ef4444" />
-                    <text x="${toSvgX(start.x) + 12}" y="${toSvgY(start.y) + 4}" font-size="13" font-weight="700" fill="#b91c1c">A</text>
-                    
-                    <circle cx="${toSvgX(end.x)}" cy="${toSvgY(end.y)}" r="10" fill="#10b981" />
-                    <text x="${toSvgX(end.x) + 12}" y="${toSvgY(end.y) + 4}" font-size="13" font-weight="700" fill="#047857">B</text>
-                    
-                    ${clicsHTML}
-                </svg>
-
-                <div class="grid gap-3 rounded-2xl bg-slate-50 p-4 text-center md:grid-cols-3 mt-4 border border-slate-100">
-                    <div>
-                        <p class="text-xs font-bold uppercase text-slate-500">Punto A</p>
-                        <p class="text-xl font-black text-red-600">(${start.x}, ${start.y})</p>
-                    </div>
-                    <div>
-                        <p class="text-xs font-bold uppercase text-slate-500">Punto B</p>
-                        <p class="text-xl font-black text-emerald-600">(${end.x}, ${end.y})</p>
-                    </div>
-                    <div>
-                        <p class="text-xs font-bold uppercase text-slate-500">Vector AB</p>
-                        <p class="text-xl font-black text-blue-700">(${dx}, ${dy})</p>
-                    </div>
-                </div>
-            `;
         }
 
-        // --- CONTROL DEL EXPLORADOR LIBRE ---
-        function updateFreeExplorer() {
-            renderPlano('grid-free-container', {x: 0, y: 0}, freeEnd, null, false, 'clickFreeGrid');
-            document.getElementById('vector-free-text').innerText = `Vector = (${freeEnd.x}, ${freeEnd.y})`;
-            
-            const absX = Math.abs(freeEnd.x);
-            const absY = Math.abs(freeEnd.y);
-            const dirX = freeEnd.x >= 0 ? "a la derecha" : "a la izquierda";
-            const dirY = freeEnd.y >= 0 ? "hacia arriba" : "hacia abajo";
-            document.getElementById('vector-free-desc').innerText = `Esto significa: ${absX} ${dirX} y ${absY} ${dirY}.`;
-        }
-
-        function clickFreeGrid(x, y) {
+        // LÓGICA DE INTERACCIÓN EN PESTAÑA EXPLORADOR LIBRE
+        function handleFreeClick(x, y) {
             freeEnd = { x, y };
-            updateFreeExplorer();
+            document.getElementById('free-coord-b').textContent = `(${x}, ${y})`;
+            document.getElementById('free-vector-val').textContent = `(${x}, ${y})`;
+            
+            // Generar frase explicativa automática
+            let textX = x === 0 ? "" : `${Math.abs(x)} a la ${x > 0 ? 'derecha' : 'izquierda'}`;
+            let textY = y === 0 ? "" : `${Math.abs(y)} hacia ${y > 0 ? 'arriba' : 'abajo'}`;
+            let connector = (x !== 0 && y !== 0) ? " y " : "";
+            let phrase = (x === 0 && y === 0) ? "Sin movimiento (vector nulo)." : `${textX}${connector}${textY}.`;
+            
+            document.getElementById('free-translation').textContent = phrase;
+            renderGrid('free-grid', {x:0, y:0}, freeEnd, null, false, handleFreeClick);
         }
 
         function resetFreeExplorer() {
-            freeEnd = { x: 3, y: 2 };
-            updateFreeExplorer();
+            handleFreeClick(3, 2);
         }
 
-        // --- CONTROL DE LAS MISIONES ---
-        function updateMisiones() {
-            const m = misiones[activeMissionIdx];
-            const currentDx = missionEnd.x - m.start.x;
-            const currentDy = missionEnd.y - m.start.y;
-            
-            renderPlano('grid-mission-container', m.start, missionEnd, m.target, showMissionTarget, 'clickMissionGrid');
-            
-            document.getElementById('mission-counter-text').innerText = `${activeMissionIdx + 1}/${misiones.length}`;
-            document.getElementById('mission-title-tag').innerText = m.title;
-            document.getElementById('mission-subtitle-text').innerText = m.subtitle;
-            document.getElementById('mission-instruction-text').innerText = m.instruction;
-            document.getElementById('mission-current-vector').innerText = `(${currentDx}, ${currentDy})`;
+        // LÓGICA DE INTERACCIÓN EN PESTAÑA MISIONES
+        function updateMissionUI() {
+            const current = missions[currentMissionIdx];
+            const dx = missionEnd.x - current.start.x;
+            const dy = missionEnd.y - current.start.y;
 
-            // Comprobar si es correcto
-            const isCorrect = (missionEnd.x === m.target.x && missionEnd.y === m.target.y);
-            const feedbackBox = document.getElementById('mission-feedback-box');
-            const feedbackIcon = document.getElementById('mission-feedback-icon');
-            const feedbackTitle = document.getElementById('mission-feedback-title');
-            const feedbackHelp = document.getElementById('mission-feedback-help');
-            const btnNext = document.getElementById('btn-next-mission');
+            // Actualizar textos informativos
+            document.getElementById('mission-badge').textContent = `Misión ${currentMissionIdx + 1} / ${missions.length}`;
+            document.getElementById('mission-title').textContent = current.title;
+            document.getElementById('mission-subtitle').textContent = current.subtitle;
+            document.getElementById('mission-instruction').textContent = current.instruction;
+            document.getElementById('mission-coord-a').textContent = `(${current.start.x}, ${current.start.y})`;
+            document.getElementById('mission-coord-b').textContent = `(${missionEnd.x}, ${missionEnd.y})`;
+            document.getElementById('mission-vector-val').textContent = `(${dx}, ${dy})`;
 
-            if (isCorrect) {
-                feedbackBox.className = "rounded-3xl p-6 ring-1 bg-green-50 ring-green-200 border-l-4 border-green-500 shadow-sm";
-                feedbackIcon.innerText = "🎉";
-                feedbackTitle.className = "text-2xl font-black text-green-800";
-                feedbackTitle.innerText = "¡Reto conseguido!";
-                feedbackHelp.innerText = "Has colocado correctamente el punto final del vector.";
+            // Verificar si el alumno ha completado el reto actual
+            const success = (missionEnd.x === current.target.x && missionEnd.y === current.target.y);
+            const statusBox = document.getElementById('mission-status-box');
+            const statusIcon = document.getElementById('mission-status-icon');
+            const statusTitle = document.getElementById('mission-status-title');
+            const statusDesc = document.getElementById('mission-status-desc');
+            const nextBtn = document.getElementById('btn-next');
+
+            if (success) {
+                statusBox.className = "rounded-3xl p-6 border bg-green-50 border-green-200 transition-all shadow-sm";
+                statusIcon.innerHTML = `<i data-lucide="check-circle-2" class="w-8 h-8 text-green-600"></i>`;
+                statusTitle.className = "text-xl font-black text-green-800";
+                statusTitle.textContent = "¡Reto conseguido!";
+                statusDesc.textContent = "Excelente. Has colocado las coordenadas vectoriales en la posición correcta.";
                 
-                if (activeMissionIdx < misiones.length - 1) {
-                    btnNext.disabled = false;
+                nextBtn.disabled = currentMissionIdx === missions.length - 1;
+                if (currentMissionIdx < missions.length - 1) {
+                    nextBtn.className = "rounded-xl bg-indigo-700 p-4 font-black text-white transition hover:bg-indigo-600 shadow-md";
+                } else {
+                    nextBtn.className = "rounded-xl bg-slate-300 p-4 font-black text-slate-500 cursor-not-allowed";
+                    statusDesc.textContent = "¡Has completado todas las misiones disponibles del taller!";
                 }
             } else {
-                feedbackBox.className = "rounded-3xl p-6 ring-1 bg-white ring-slate-200";
-                feedbackIcon.innerText = "🎯";
-                feedbackTitle.className = "text-2xl font-black text-slate-800";
-                feedbackTitle.innerText = "Sigue probando";
-                feedbackHelp.innerText = m.help;
-                btnNext.disabled = true;
+                statusBox.className = "rounded-3xl p-6 border bg-white border-slate-200 transition-all";
+                statusIcon.innerHTML = `<i data-lucide="target" class="w-8 h-8 text-slate-400"></i>`;
+                statusTitle.className = "text-xl font-black text-slate-800";
+                statusTitle.textContent = "Sigue probando...";
+                statusDesc.textContent = current.help;
+                
+                nextBtn.disabled = true;
+                nextBtn.className = "rounded-xl bg-indigo-300 p-4 font-black text-white cursor-not-allowed";
             }
-
-            document.getElementById('btn-pista').innerText = showMissionTarget ? "Ocultar pista" : "Ver pista";
+            lucide.createIcons(); // Recargar imágenes de iconos dinamizados
+            renderGrid('mission-grid', current.start, missionEnd, current.target, showMissionTargetHint, handleMissionClick);
         }
 
-        function clickMissionGrid(x, y) {
+        function handleMissionClick(x, y) {
             missionEnd = { x, y };
-            updateMisiones();
+            updateMissionUI();
         }
 
-        function resetCurrentMission() {
-            const m = misiones[activeMissionIdx];
-            missionEnd = { x: m.start.x + 1, y: m.start.y + 1 };
-            showMissionTarget = false;
-            updateMisiones();
+        function toggleMissionHint() {
+            showMissionTargetHint = !showMissionTargetHint;
+            document.getElementById('btn-hint').textContent = showMissionTargetHint ? "Ocultar Pista" : "Mostrar Pista";
+            updateMissionUI();
         }
 
-        function toggleMissionTarget() {
-            showMissionTarget = !showMissionTarget;
-            updateMisiones();
-        }
-
-        function goToNextMission() {
-            if (activeMissionIdx < misiones.length - 1) {
-                activeMissionIdx++;
-                const nextM = misiones[activeMissionIdx];
-                missionEnd = { x: nextM.start.x + 1, y: nextM.start.y + 1 };
-                showMissionTarget = false;
-                updateMisiones();
+        function nextMission() {
+            if (currentMissionIdx < missions.length - 1) {
+                currentMissionIdx++;
+                const nextTarget = missions[currentMissionIdx];
+                // Forzar posición inicial desajustada para que tengan que resolverlo
+                missionEnd = { x: nextTarget.start.x + 1, y: nextTarget.start.y + 1 };
+                showMissionTargetHint = false;
+                document.getElementById('btn-hint').textContent = "Mostrar Pista";
+                updateMissionUI();
             }
         }
 
-        // --- CONTROL DEL TEST FINAL ---
-        function buildQuiz() {
-            const container = document.getElementById('quiz-questions-block');
-            container.innerHTML = quizQuestions.map((q, qIdx) => {
-                const optionsHTML = q.options.map((opt, oIdx) => `
-                    <button id="quiz-btn-${qIdx}-${oIdx}" onclick="selectQuizOption(${qIdx}, ${oIdx})" class="w-full rounded-2xl p-4 text-left text-lg font-semibold bg-slate-100 hover:bg-blue-100 border border-slate-200 text-slate-800 transition-all">
-                        ${opt}
-                    </button>
-                `).join('');
-
-                return `
-                    <div class="rounded-3xl bg-white p-6 text-slate-900 border border-slate-200">
-                        <h3 class="mb-5 text-2xl font-black">${qIdx + 1}. ${q.question}</h3>
-                        <div class="grid gap-3 md:grid-cols-2">
-                            ${optionsHTML}
-                        </div>
-                        <div id="quiz-explain-${qIdx}" class="hidden mt-5 rounded-2xl p-4 text-lg font-semibold"></div>
-                    </div>
-                `;
-            }).join('');
-        }
-
-        function selectQuizOption(qIdx, oIdx) {
-            if (quizGraded) return;
-            selectedAnswers[qIdx] = oIdx;
-
-            // Limpiar estilos previos en la pregunta activa
-            quizQuestions[qIdx].options.forEach((_, idx) => {
-                const btn = document.getElementById(`quiz-btn-${qIdx}-${idx}`);
-                btn.className = "w-full rounded-2xl p-4 text-left text-lg font-semibold bg-slate-100 hover:bg-blue-100 border border-slate-200 text-slate-800 transition-all";
-            });
-
-            // Marcar azul el seleccionado temporalmente
-            const selectedBtn = document.getElementById(`quiz-btn-${qIdx}-${oIdx}`);
-            selectedBtn.className = "w-full rounded-2xl p-4 text-left text-lg font-semibold bg-blue-600 text-white border border-blue-400 ring-2 ring-blue-300 transition-all";
-        }
-
-        function checkQuizResults() {
-            if (Object.keys(selectedAnswers).length < quizQuestions.length) {
-                alert("Por favor, responde todas las preguntas del test antes de corregir.");
-                return;
-            }
-
-            quizGraded = true;
-            let score = 0;
+        // CONTROLADOR DE EXAMEN INTERACTIVO (TEST)
+        function initQuiz() {
+            const container = document.getElementById('quiz-container');
+            container.innerHTML = '';
 
             quizQuestions.forEach((q, qIdx) => {
-                const userAns = selectedAnswers[qIdx];
-                const explainBox = document.getElementById(`quiz-explain-${qIdx}`);
-                explainBox.classList.remove('hidden');
+                let card = document.createElement('div');
+                card.className = "rounded-3xl bg-slate-50 p-6 border border-slate-200 space-y-4";
+                
+                let title = document.createElement('h3');
+                title.className = "text-xl font-black text-slate-800";
+                title.textContent = `${qIdx + 1}. ${q.question}`;
+                card.appendChild(title);
 
-                // Estilizar botones finales (Correctos en Verde, fallos en Rojo)
-                q.options.forEach((_, oIdx) => {
-                    const btn = document.getElementById(`quiz-btn-${qIdx}-${oIdx}`);
-                    if (oIdx === q.answer) {
-                        btn.className = "w-full rounded-2xl p-4 text-left text-lg font-semibold bg-green-100 text-green-800 ring-2 ring-green-300 font-bold";
-                    } else if (userAns === oIdx) {
-                        btn.className = "w-full rounded-2xl p-4 text-left text-lg font-semibold bg-red-100 text-red-800 ring-2 ring-red-300";
+                let optGrid = document.createElement('div');
+                optGrid.className = "grid gap-3 md:grid-cols-2";
+
+                q.options.forEach((opt, optIdx) => {
+                    let btn = document.createElement('button');
+                    btn.id = `q-${qIdx}-opt-${optIdx}`;
+                    btn.className = "w-full rounded-xl p-4 text-left font-semibold border border-slate-200 bg-white hover:bg-blue-50/50 transition cursor-pointer text-slate-700 text-base";
+                    btn.textContent = opt;
+                    btn.addEventListener('click', () => selectQuizAnswer(qIdx, optIdx));
+                    optGrid.appendChild(btn);
+                });
+
+                card.appendChild(optGrid);
+
+                // Caja de retroalimentación (Oculta al inicio)
+                let feedback = document.createElement('div');
+                feedback.id = `feedback-${qIdx}`;
+                feedback.className = "hidden rounded-xl p-4 text-base font-semibold leading-relaxed";
+                card.appendChild(feedback);
+
+                container.appendChild(card);
+            });
+        }
+
+        function selectQuizAnswer(qIdx, optIdx) {
+            if(quizGraded) return; // Bloquear si ya se ha corregido
+
+            // Desmarcar opciones anteriores de la misma pregunta
+            quizQuestions[qIdx].options.forEach((_, idx) => {
+                let el = document.getElementById(`q-${qIdx}-opt-${idx}`);
+                el.className = "w-full rounded-xl p-4 text-left font-semibold border border-slate-200 bg-white hover:bg-blue-50/50 transition cursor-pointer text-slate-700 text-base";
+            });
+
+            // Marcar selección actual
+            userQuizAnswers[qIdx] = optIdx;
+            let targetBtn = document.getElementById(`q-${qIdx}-opt-${optIdx}`);
+            targetBtn.className = "w-full rounded-xl p-4 text-left font-semibold border-2 border-indigo-600 bg-indigo-50 text-indigo-900 text-base";
+        }
+
+        function gradeQuiz() {
+            quizGraded = true;
+            let finalScore = 0;
+
+            quizQuestions.forEach((q, qIdx) => {
+                const userAns = userQuizAnswers[qIdx];
+                const feedbackBox = document.getElementById(`feedback-${qIdx}`);
+                feedbackBox.classList.remove('hidden');
+
+                // Resaltar aciertos/errores en botones
+                q.options.forEach((_, optIdx) => {
+                    let btn = document.createElement('button');
+                    let el = document.getElementById(`q-${qIdx}-opt-${optIdx}`);
+                    el.className = "w-full rounded-xl p-4 text-left font-semibold border text-base cursor-not-allowed opacity-60 ";
+                    
+                    if(optIdx === q.answer) {
+                        el.className += "border-green-300 bg-green-100 text-green-900 font-bold opacity-100";
+                    } else if(userAns === optIdx && userAns !== q.answer) {
+                        el.className += "border-red-300 bg-red-100 text-red-900";
                     } else {
-                        btn.className = "w-full rounded-2xl p-4 text-left text-lg font-semibold bg-slate-50 text-slate-400 border border-slate-200 cursor-not-allowed";
+                        el.className += "border-slate-200 bg-white text-slate-400";
                     }
                 });
 
                 if (userAns === q.answer) {
-                    score++;
-                    explainBox.className = "mt-5 rounded-2xl p-4 text-lg font-semibold bg-green-50 text-green-800 flex flex-col gap-1 border border-green-200";
-                    explainBox.innerHTML = `<span>✓ ¡Correcto!</span><p class="text-sm font-normal text-slate-600">${q.explanation}</p>`;
+                    finalScore++;
+                    feedbackBox.className = "rounded-xl p-4 text-base font-semibold bg-green-100 text-green-900 flex flex-col gap-1";
+                    feedbackBox.innerHTML = `<span class="flex items-center gap-2 font-black text-green-900"><i data-lucide="check-circle" class="w-5 h-5"></i> ¡Correcto!</span> <p class="text-sm text-green-800 font-normal font-sans">${q.explanation}</p>`;
                 } else {
-                    explainBox.className = "mt-5 rounded-2xl p-4 text-lg font-semibold bg-red-50 text-red-800 flex flex-col gap-1 border border-red-200";
-                    explainBox.innerHTML = `<span>✗ Revisa esta pregunta</span><p class="text-sm font-normal text-slate-600">${q.explanation}</p>`;
+                    feedbackBox.className = "rounded-xl p-4 text-base font-semibold bg-red-100 text-red-900 flex flex-col gap-1";
+                    feedbackBox.innerHTML = `<span class="flex items-center gap-2 font-black text-red-900"><i data-lucide="x-circle" class="w-5 h-5"></i> Revisar concepto</span> <p class="text-sm text-red-800 font-normal font-sans">${q.explanation}</p>`;
                 }
             });
 
-            document.getElementById('quiz-score-text').innerText = `${score}/${quizQuestions.length}`;
-            document.getElementById('quiz-score-badge').classList.remove('hidden');
+            // Mostrar el casillero de nota final
+            document.getElementById('quiz-score').textContent = finalScore;
+            document.getElementById('quiz-result-box').classList.remove('hidden');
+            lucide.createIcons();
         }
 
-        // --- INICIALIZACIÓN GLOBAL ---
-        window.addEventListener('DOMContentLoaded', () => {
-            updateFreeExplorer();
-            // Configurar punto de partida inicial de la misión 1
-            missionEnd = { x: misiones[0].start.x + 1, y: misiones[0].start.y + 1 };
-            updateMisiones();
-            buildQuiz();
+        // INICIALIZACIÓN GENERAL DE LA APLICACIÓN AL CARGAR
+        window.onload = function() {
             lucide.createIcons();
-        });
+            // Inicializar vistas gráficas base
+            renderGrid('free-grid', {x:0, y:0}, freeEnd, null, false, handleFreeClick);
+            initQuiz();
+        };
     </script>
 </body>
 </html>
